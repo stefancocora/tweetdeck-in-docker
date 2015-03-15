@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=TweetDeck
+Comment=wine
+Type=Application
+Exec=wine .winetweetdeck/drive_c/Program\ Files/Twitter/TweetDeck/TweetDeck.exe
+Icon=.winetweetdeck/drive_c/Program\ Files/Twitter/TweetDeck/tweetdeck.ico
+Name[fr_FR]=TweetDeck
+StartupWMClass=TweetDeck.exe
+Categories=

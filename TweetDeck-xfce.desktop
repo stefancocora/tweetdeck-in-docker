@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=TweetDeck
+Comment=TweetDeck
+Exec=wine .winetweetdeck/drive_c/Program\ Files/Twitter/TweetDeck/TweetDeck.exe
+Icon=/var/tmp/Tweetdeck-Logo.png
+Path=
+Terminal=false
+StartupNotify=true
