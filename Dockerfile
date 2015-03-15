@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-MAINTAINER Stefan Cocora <stefancocora@github.com>
+MAINTAINER Stefan Cocora <stefan.cocora@gmail.com>
 
 ENV 	DEBIAN_FRONTEND noninteractive
 ENV 	LANGUAGE en_US.UTF-8
