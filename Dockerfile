@@ -17,7 +17,7 @@ RUN add-apt-repository -y ppa:ubuntu-wine/ppa
 RUN sudo dpkg --add-architecture i386
 RUN apt-get update
 
-RUN apt-get install x2goserver x2goserver-xsession pwgen wine1.7 winetricks -y
+RUN apt-get install x2goserver x2goserver-xsession pwgen wine1.7 winetricks wine-gecko2.34 -y
 
 RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config
 RUN sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
@@ -28,10 +28,20 @@ RUN mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix
 # add user
 RUN adduser --disabled-password --gecos "" tweetdeck && adduser tweetdeck sudo
 
-# install tweetdeck as tweetdeck user
-RUN sudo -u tweetdeck sh -c "wget http://www.tweetdeck.com/download/pc/latest -O /tmp/tweetdeck.msi && \
-    WINEARCH=win32 WINEPREFIX=/home/tweetdeck/.winetweetdeck wine msiexec /i /tmp/tweetdeck.msi"
+# install lessmsi to extract the tweetdeck msi
+RUN sudo -u tweetdeck sh -c "mkdir /tmp/lessmsi && \
+                            wget https://github.com/activescott/lessmsi/releases/download/v1.2.0/lessmsi-v1.2.0.zip -O /tmp/lessmsi/lessmsi-v1.2.0.zip && \
+                            cd /tmp/lessmsi && \
+                            unzip lessmsi-v1.2.0.zip"
 
+# install tweetdeck as tweetdeck user
+# create wine prefix
+USER tweetdeck
+RUN WINEARCH=win32 WINEPREFIX=/home/tweetdeck/.winetweetdeck wine winecfg 2>&1
+ADD install-tweetdeck.sh /var/tmp/install-tweetdeck.sh
+RUN /var/tmp/install-tweetdeck.sh
+
+USER root
 ADD Tweetdeck-Logo.png /var/tmp/Tweetdeck-Logo.png
 RUN chown -R tweetdeck:tweetdeck /var/tmp/Tweetdeck-Logo.png
 ADD TweetDeck-xfce.desktop /home/tweetdeck/Desktop/TweetDeck.desktop
