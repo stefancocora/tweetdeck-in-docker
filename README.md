@@ -3,6 +3,11 @@ tweetdeck-in-docker
 
 Automated build that will result in a docker image with xubuntu and tweetdeck ( tweetdeck installed via wine )
 
+## Why
+- - -
+More info about the existence of this container in this blog post: http://www.procmind.com/blog/2015/04/19/tweetdeck-on-linux/
+
+
 ## Tested
 - - -
 Tested on Ubuntu 14.04 x64 , should work on all modern Linux distros where docker works.
